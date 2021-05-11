@@ -1,0 +1,39 @@
+---
+- hosts: playground
+  roles:
+    - role: base
+      become: yes
+    - role: geerlingguy.gitlab
+      become: yes
+      # gitlab_external_url: https://gitlab.vojak.dev/
+    - role: eugene_krivosheyev.artifactory
+      become: yes
+      artifactory_port: 8081
+      artifactory_ui_port: 8082
+      # artifactory_username: admin
+      # artifactory_password: P@ssw0rd
+    - role: geerlingguy.apache
+      become: yes
+      apache_listen_port: 8443
+      apache_mods_enabled:
+        - rewrite.load
+        - ssl.load
+        - proxy.load
+        - proxy_http.load
+      apache_vhosts_ssl:
+        - servername: "gitlab.vojak.dev"
+          certificate_file: "/etc/ssl/certs/vojak.dev.pem"
+          certificate_key_file: "/etc/ssl/private/vojak.dev.pem"
+          extra_parameters: |
+            ProxyPass / http://localhost:80/
+            ProxyPassReverse / http://localhost:80/
+        - servername: "artifactory.vojak.dev"
+          certificate_file: "/etc/ssl/certs/vojak.dev.pem"
+          certificate_key_file: "/etc/ssl/private/vojak.dev.pem"
+          extra_parameters: |
+            ProxyPass / http://localhost:8082/
+            ProxyPassReverse / http://localhost:8082/
+          # RewriteCond %{HTTP_HOST} gitlab.vojak.dev [NC]
+          # RewriteRule / http://localhost:80 [P]
+          # ProxyPass / http://localhost:80
+          # ProxyPassReverse / http://localhost:80

@@ -1,0 +1,24 @@
+---
+- name: Install origin CA cert
+  copy:
+    src: certs/origin_ca_rsa_root.pem
+    dest: /etc/ssl/certs/origin_ca_rsa_root.pem
+    owner: root
+    group: root
+    mode: '0700'
+
+- name: Install wildcard cert
+  copy:
+    src: certs/vojak.dev.pem
+    dest: /etc/ssl/certs/vojak.dev.pem
+    owner: root
+    group: root
+    mode: '0700'
+
+- name: Install private key
+  copy:
+    src: private/vojak.dev.pem
+    dest: /etc/ssl/private/vojak.dev.pem
+    owner: root
+    group: root
+    mode: '0700'

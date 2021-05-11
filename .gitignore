@@ -1,0 +1,14 @@
+.DS_Store
+
+.credentials
+id_rsa
+id_rsa.pub
+ssl/
+*.pem
+
+*.ova
+packer/packer_cache/
+
+terraform/.terraform/
+*.tfstate
+*.backup

@@ -1,0 +1,8 @@
+---
+- name: restart sshd
+  service: name={{ sshd }} state=restarted
+- name: rmmodipv6
+  command: rmmod ipv6
+  ignore_errors: true
+# - name: grub2-mkconfig
+#   command: grub2-mkconfig -o /boot/grub2/grub.cfg

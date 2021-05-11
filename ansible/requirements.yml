@@ -1,0 +1,4 @@
+---
+- src: geerlingguy.apache
+- src: eugene_krivosheyev.artifactory
+- src: geerlingguy.gitlab
