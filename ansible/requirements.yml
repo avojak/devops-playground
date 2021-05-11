@@ -3,3 +3,4 @@
 - src: eugene_krivosheyev.artifactory
 - src: geerlingguy.gitlab
 - src: geerlingguy.docker
+- src: geerlingguy.pip

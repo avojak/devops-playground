@@ -1,5 +1,6 @@
 .DS_Store
 
+.vault-password-file
 .credentials
 id_rsa
 id_rsa.pub
