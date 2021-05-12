@@ -14,11 +14,11 @@
           - name: docker
     - role: geerlingguy.gitlab
       become: yes
-      vars:
-        gitlab_external_url: "https://gitlab.vojak.dev/"
-        gitlab_nginx_listen_port: 8080
-        gitlab_nginx_listen_https: "false"
-        gitlab_time_zone: "America/Denver"
+      # vars:
+        # gitlab_external_url: "https://gitlab.vojak.dev/"
+        # gitlab_nginx_listen_port: 8080
+        # gitlab_nginx_listen_https: "false"
+        # gitlab_time_zone: "America/Denver"
     - role: gitlab-runner
       become: yes
     - role: eugene_krivosheyev.artifactory
@@ -38,8 +38,8 @@
           certificate_file: "/etc/ssl/certs/vojak.dev.pem"
           certificate_key_file: "/etc/ssl/private/vojak.dev.pem"
           extra_parameters: |
-            ProxyPass / http://localhost:8080/
-            ProxyPassReverse / http://localhost:8080/
+            ProxyPass / http://localhost:80/
+            ProxyPassReverse / http://localhost:80/
         - servername: "artifactory.vojak.dev"
           certificate_file: "/etc/ssl/certs/vojak.dev.pem"
           certificate_key_file: "/etc/ssl/private/vojak.dev.pem"
