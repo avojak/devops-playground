@@ -33,3 +33,21 @@
     state: latest
     update_cache: yes
     cache_valid_time: 3600
+
+- name: Enable UFW with default deny
+  ufw:
+    state: enabled
+    policy: deny
+
+- name: Open port 443
+  ufw:
+    rule: allow
+    port: 443
+    log: yes
+
+- name: Open port 22 with limited access
+  ufw:
+    rule: limit
+    port: ssh
+    proto: tcp
+    log: yes
