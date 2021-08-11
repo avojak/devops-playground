@@ -14,39 +14,47 @@
           - name: docker
     - role: geerlingguy.gitlab
       become: yes
-      # vars:
-        # gitlab_external_url: "https://gitlab.vojak.dev/"
+      vars:
+        gitlab_external_url: "https://gitlab.vojak.dev/"
+        gitlab_redirect_http_to_https: "true"
+        # gitlab_nginx_redirect_http_to_https_port: 8080
+        gitlab_letsencrypt_enable: false
         # gitlab_nginx_listen_port: 80
-        # gitlab_nginx_listen_https: "false"
-        # gitlab_time_zone: "America/Denver"
+        gitlab_nginx_listen_port: 80
+        gitlab_nginx_listen_https: 443
+        gitlab_ssl_certificate: "/etc/ssl/certs/vojak.dev.pem"
+        gitlab_ssl_certificate_key: "/etc/ssl/private/vojak.dev.pem"
+        gitlab_time_zone: "America/Denver"
         # gitlab_extra_settings:
         #   - gitlab_shell:
         #     - key: "ssh_port"
-        #       value: "443"
+        #       value: "22"
     - role: gitlab-runner
       become: yes
-    - role: eugene_krivosheyev.artifactory
-      become: yes
-      artifactory_port: 8081
-      artifactory_ui_port: 8082
-    - role: geerlingguy.apache
-      become: yes
-      apache_listen_port: 8443
-      apache_mods_enabled:
-        - rewrite.load
-        - ssl.load
-        - proxy.load
-        - proxy_http.load
-      apache_vhosts_ssl:
-        - servername: "gitlab.vojak.dev"
-          certificate_file: "/etc/ssl/certs/vojak.dev.pem"
-          certificate_key_file: "/etc/ssl/private/vojak.dev.pem"
-          extra_parameters: |
-            ProxyPass / http://localhost:80/
-            ProxyPassReverse / http://localhost:80/
-        - servername: "artifactory.vojak.dev"
-          certificate_file: "/etc/ssl/certs/vojak.dev.pem"
-          certificate_key_file: "/etc/ssl/private/vojak.dev.pem"
-          extra_parameters: |
-            ProxyPass / http://localhost:8082/
-            ProxyPassReverse / http://localhost:8082/
+    # - role: eugene_krivosheyev.artifactory
+    #   become: yes
+    #   artifactory_port: 8081
+    #   artifactory_ui_port: 8082
+    # - role: geerlingguy.apache
+    #   become: yes
+    #   # apache_listen_port: 80
+    #   # apache_listen_port_ssl: 5443
+    #   # apache_listen_port: 8080
+    #   apache_mods_enabled:
+    #     - rewrite.load
+    #     - ssl.load
+    #     - proxy.load
+    #     - proxy_http.load
+    #   apache_vhosts_ssl:
+    #     - servername: "gitlab.vojak.dev"
+    #       certificate_file: "/etc/ssl/certs/vojak.dev.pem"
+    #       certificate_key_file: "/etc/ssl/private/vojak.dev.pem"
+    #       extra_parameters: |
+    #         ProxyPass / http://localhost:8090/
+    #         ProxyPassReverse / http://localhost:8090/
+    #     - servername: "artifactory.vojak.dev"
+    #       certificate_file: "/etc/ssl/certs/vojak.dev.pem"
+    #       certificate_key_file: "/etc/ssl/private/vojak.dev.pem"
+    #       extra_parameters: |
+    #         ProxyPass / http://localhost:8082/
+    #         ProxyPassReverse / http://localhost:8082/
