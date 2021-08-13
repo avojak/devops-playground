@@ -6,3 +6,28 @@
   ignore_errors: true
 # - name: grub2-mkconfig
 #   command: grub2-mkconfig -o /boot/grub2/grub.cfg
+- name: register runners
+  # debug:
+    # msg: "{{ runners_created.results }}"
+  docker_container:
+    image: gitlab/gitlab-runner:latest
+    name: "register-{{ item.item }}"
+    volumes:
+      - "/srv/{{ item.item }}/config:/etc/gitlab-runner"
+    state: started
+    container_default_behavior: no_defaults
+    detach: no
+    command: >
+      register
+      --non-interactive
+      --executor "docker"
+      --docker-image "ubuntu:latest"
+      --url "https://gitlab.vojak.dev"
+      --registration-token "{{ gitlab_runner_registration_token }}"
+      --description "Docker {{ item.item }}"
+      --tag-list "docker"
+      --run-untagged="true"
+      --locked="false"
+      --access-level="not_protected"
+  when: item.changed
+  with_items: "{{ runners_created.results }}"
