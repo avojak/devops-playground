@@ -51,8 +51,8 @@
     proto: tcp
     log: yes
 
-# - name: Disable Apache
-#   service:
-#     name: apache2
-#     state: stopped
-#     enabled: no
+- name: Open port 80 for GitLab
+  ufw:
+    rule: allow
+    port: 80
+    log: yes
