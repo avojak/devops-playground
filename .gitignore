@@ -7,7 +7,16 @@ id_rsa.pub
 ssl/
 *.pem
 
-*.ova
+packer/output/**/*.ova
+packer/output/**/*.vmdk
+packer/output/**/*.nvram
+packer/output/**/*.plist
+packer/output/**/*.vmsd
+packer/output/**/*.vmx
+packer/output/**/*.vmxf
+packer/output/**/*.scoreboard
+packer/output/**/*.log
+packer/output/**/*.lck
 packer/packer_cache/
 
 terraform/.terraform/
