@@ -110,6 +110,10 @@ gitlab-rails runner -e production " \
   user.save!"
 ```
 
+#### GitLab Cloning and Pushing
+
+Because no SSH connections are allowed into the network from the outside, all git operations must be performed via the HTTPS URLs, not via SSH.
+
 ## Traefik
 
 The `traefik` directory contains a copy of the configuration used to run a Traefik container as a reverse proxy.
