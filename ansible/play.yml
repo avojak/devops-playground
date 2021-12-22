@@ -15,20 +15,13 @@
     - role: geerlingguy.gitlab
       become: yes
       vars:
-        gitlab_external_url: "https://gitlab.vojak.dev/"
-        gitlab_redirect_http_to_https: "true"
-        # gitlab_nginx_redirect_http_to_https_port: 8080
+        gitlab_domain: "gitlab.vojak.dev"
+        gitlab_redirect_http_to_https: false
+        gitlab_ssl_self_signed_cert: false
         gitlab_letsencrypt_enable: false
-        # gitlab_nginx_listen_port: 80
         gitlab_nginx_listen_port: 80
-        gitlab_nginx_listen_https: 443
-        gitlab_ssl_certificate: "/etc/ssl/certs/vojak.dev.pem"
-        gitlab_ssl_certificate_key: "/etc/ssl/private/vojak.dev.pem"
+        gitlab_nginx_listen_https: false
         gitlab_time_zone: "America/Denver"
-        # gitlab_extra_settings:
-        #   - gitlab_shell:
-        #     - key: "ssh_port"
-        #       value: "22"
     - role: gitlab-runner
       become: yes
     # - role: eugene_krivosheyev.artifactory

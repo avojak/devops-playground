@@ -4,7 +4,12 @@ collections:
   - name: community.docker
 roles:
   - src: geerlingguy.apache
+    version: 3.1.4
   - src: eugene_krivosheyev.artifactory
+    version: master
   - src: geerlingguy.gitlab
+    version: 3.2.0
   - src: geerlingguy.docker
+    version: 3.1.2
   - src: geerlingguy.pip
+    version: 2.0.0

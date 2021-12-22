@@ -27,6 +27,11 @@
     line: 'UsePAM yes'
   notify: restart sshd
 
+- name: Aptitude safe-upgrade
+  apt:
+    upgrade: safe
+    update_cache: yes
+
 - name: Install fail2ban
   apt:
     name: ['fail2ban', 'sendmail']
@@ -39,12 +44,6 @@
     state: enabled
     policy: deny
 
-- name: Open port 443
-  ufw:
-    rule: allow
-    port: 443
-    log: yes
-
 - name: Open port 22 with limited access
   ufw:
     rule: limit
@@ -52,8 +51,8 @@
     proto: tcp
     log: yes
 
-- name: Disable Apache
-  service:
-    name: apache2
-    state: stopped
-    enabled: no
+# - name: Disable Apache
+#   service:
+#     name: apache2
+#     state: stopped
+#     enabled: no
