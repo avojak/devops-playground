@@ -1,5 +1,13 @@
 ---
-- name: register runners
+# Delete the old runner config so that it is recreated (prevents multiple [[runners]] blocks in the config.toml file)
+- name: Delete runner config
+  file:
+    path: "/srv/{{ item.item }}/config/config.toml"
+    state: absent
+  when: item.changed
+  with_items: "{{ runners_created.results }}"
+# Register the runners by launching a short-lived container to perform the registration (https://docs.gitlab.com/runner/register/#docker)
+- name: Register runners
   # debug:
     # msg: "{{ runners_created.results }}"
   docker_container:
@@ -14,7 +22,7 @@
       register
       --non-interactive
       --executor "docker"
-      --docker-image "ubuntu:latest"
+      --docker-image "docker:20.10.7"
       --url "https://gitlab.vojak.dev"
       --registration-token "{{ gitlab_runner_registration_token }}"
       --description "Docker {{ item.item }}"
@@ -22,5 +30,6 @@
       --run-untagged="true"
       --locked="false"
       --access-level="not_protected"
+      --docker-privileged
   when: item.changed
   with_items: "{{ runners_created.results }}"

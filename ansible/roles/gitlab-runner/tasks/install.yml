@@ -7,9 +7,13 @@
       - /var/run/docker.sock:/var/run/docker.sock
       - "/srv/{{ item }}/config:/etc/gitlab-runner"
     state: started
+    restart_policy: unless-stopped
     container_default_behavior: no_defaults
+    privileged: yes
     env:
       TZ: "America/Denver"
   with_sequence: start=1 end=4 format=gitlab-runner-%02x
   register: runners_created
-  notify: register runners
+  notify: 
+    - Delete runner config
+    - Register runners
