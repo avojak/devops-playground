@@ -75,6 +75,10 @@ $ ansible-vault edit secrets.yml --vault-password-file=".vault-password-file"
 
 - You may need to restart the server after running the IPv6 disable task for the first time
 
+#### GitLab
+
+You may need to run `gitlab-ctl reconfigure` to kick GitLab into picking up configuration changes, or to troubleshoot issues.
+
 #### GitLab HTTPS
 
 Note that HTTPS is disabled for GitLab. This setup assumes a reverse proxy on the edge of the network which handles SSL termination, so

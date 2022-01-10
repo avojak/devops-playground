@@ -4,3 +4,7 @@ http:
       loadBalancer:
         servers:
           - url: http://192.168.1.80
+    gitlab_registry:
+      loadBalancer:
+        servers:
+          - url: http://192.168.1.80:5005

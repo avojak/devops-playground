@@ -28,6 +28,9 @@ services:
       - "traefik.http.routers.gitlab.entrypoints=websecure"
       - "traefik.http.routers.gitlab.rule=Host(`gitlab.vojak.dev`)"
       - "traefik.http.routers.gitlab.service=gitlab@file"
+      - "traefik.http.routers.gitlab_registry.entrypoints=websecure"
+      - "traefik.http.routers.gitlab_registry.rule=Host(`gitlab-registry.vojak.dev`)"
+      - "traefik.http.routers.gitlab_registry.service=gitlab_registry@file"
     ports:
       - "80:80"
       - "443:443"

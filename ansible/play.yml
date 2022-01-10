@@ -22,6 +22,19 @@
         gitlab_nginx_listen_port: 80
         gitlab_nginx_listen_https: false
         gitlab_time_zone: "America/Denver"
+        gitlab_registry_enable: true
+        gitlab_registry_external_url: "https://gitlab-registry.vojak.dev"
+        # There seems to be a bug where /etc/gitlab/gitlab.rb is populated with False (capitalized) instead
+        # of false (lowercase). This breaks things and is tricky to locate the bug. A manual change is
+        # required, and then a run of `gitlab-ctl reconfigure` afterwards.
+        gitlab_extra_settings:
+          - registry_nginx:
+            - key: "redirect_http_to_https"
+              value: false
+            - key: "listen_https"
+              value: false
+            - key: "listen_port"
+              value: 5005
     - role: gitlab-runner
       become: yes
     # - role: eugene_krivosheyev.artifactory

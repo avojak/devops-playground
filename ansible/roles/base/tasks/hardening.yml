@@ -56,3 +56,9 @@
     rule: allow
     port: 80
     log: yes
+
+- name: Open port 5005 for GitLab registry
+  ufw:
+    rule: allow
+    port: 5005
+    log: yes
